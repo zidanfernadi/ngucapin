@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Sweet Seventeen Imupp! <3</title>
+    
+    <!-- Import Font Poppins & Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+       body {
+    font-family: 'Poppins', sans-serif;
+    background: url('bgutama.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+    padding: 40px 15px 180px 15px; 
+}
+
+        /* Overlay gelap */
+        body::before {
+            content: ''; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 0; pointer-events: none;
+        }
+
+        /* Wrapper utama agar berada di atas background */
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- KARTU UCAPAN GLASSMORPHISM --- */
+        .card-container {
+            /* Lebih transparan sesuai permintaan */
+            background: rgba(250, 250, 250, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0);
+            border-radius: 16px;
+            padding: 45px 40px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        /* Bunga menjalar di ujung kartu */
+        /* Bunga menjalar di ujung kartu */
+/* --- BUNGA DAISY DI UJUNG KARTU --- */
+.vine {
+    position: absolute;
+    width: 80px; height: 80px; /* Atur ukuran bunga daisy-nya di sini */
+    background-size: contain; 
+    background-repeat: no-repeat;
+    pointer-events: none; 
+    z-index: 15;
+    filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.2));
+}
+
+.vine-top-left {
+    top: -30px; left: -30px; /* Posisi bunga di pojok kiri atas */
+    
+    /* Panggil nama file foto bunga daisy kamu di sini */
+    background-image: url('bunga.png'); 
+    
+    transform: rotate(-10deg); /* Miring sedikit biar natural */
+}
+
+.vine-bottom-right {
+    bottom: -30px; right: -30px; /* Posisi bunga di pojok kanan bawah */
+    
+    /* Panggil nama file foto bunga daisy kamu di sini */
+    background-image: url('bunga.png'); 
+    
+    transform: rotate(170deg); /* Miring ke arah sebaliknya */
+}
+
+        .title { 
+            font-family: 'Playfair Display', serif; color: #ffffff; 
+            font-size: 28px; margin-bottom: 20px; text-align: center; letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 0, 0.8);
+        }
+
+        .message { 
+            font-size: 14px; line-height: 1.9; color: #1a1a1a; 
+            text-align: justify; margin-bottom: 35px; font-weight: 500;
+        }
+
+        /* --- AUDIO PLAYER SPOTIFY --- */
+        .music-player {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 12px; padding: 15px 20px;
+            display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .spotify-icon { font-size: 45px; color: #1DB954; flex-shrink: 0; }
+        .pulse { animation: pulse 2s infinite; }
+        .player-info { flex-grow: 1; text-align: left; }
+        .song-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #111; }
+        .progress-container { width: 100%; height: 4px; background: #ccc; border-radius: 2px; cursor: pointer; margin-bottom: 6px; }
+        .progress { width: 0%; height: 100%; background: #1DB954; border-radius: 2px; position: relative; }
+        .time-info { display: flex; justify-content: space-between; font-size: 11px; color: #444; font-weight: 600; }
+        .play-btn {
+            background: #1DB954; color: white; border: none; width: 40px; height: 40px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; flex-shrink: 0; box-shadow: 0 4px 10px rgba(29, 185, 84, 0.4);
+        }
+
+        /* --- FOTO MENGAMBANG DI BAWAH KARTU --- */
+        .floating-photos-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px; /* Jarak dari teks box ke foto */
+            flex-wrap: wrap; /* Agar rapi jika layar HP sangat kecil */
+            z-index: 10;
+        }
+
+        .photo-frame {
+            width: 200px; height: 215px; /* Ukuran polaroid sedikit diperbesar */
+            background: #ffffff; padding: 6px 6px 20px 6px;
+            border-radius: 3px;
+            box-shadow: 0 50px 60px rgba(0,0,0,0.4);
+            /* Animasi mengambang (floating) */
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Rotasi dan kecepatan mengambang yang berbeda agar natural */
+        .photo-1 { animation-delay: 0s; --rot: -5deg; transform: rotate(-5deg); }
+        .photo-2 { animation-delay: 1.5s; --rot: 3deg; transform: rotate(3deg); margin-top: 15px; }
+        .photo-3 { animation-delay: 0.7s; --rot: -4deg; transform: rotate(-4deg); }
+
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; filter: sepia(10%) contrast(1.1); }
+
+        /* --- KEYFRAMES --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(var(--rot)); }
+            50% { transform: translateY(-15px) rotate(var(--rot)); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* Responsif untuk Smartphone */
+        @media (max-width: 768px) {
+            body { padding: 30px 15px 150px 15px; }
+            .card-container { padding: 30px 25px; }
+            .title { font-size: 22px; }
+            .message { font-size: 13px; line-height: 1.8; }
+            .vine { width: 80px; height: 80px; }
+            .vine-top-left { top: -15px; left: -15px; }
+            .vine-bottom-right { bottom: -15px; right: -15px; }
+            .photo-frame { width: 75px; height: 90px; padding: 5px 5px 18px 5px; }
+            .floating-photos-container { gap: 15px; margin-top: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Semak-semak lebat di bagian bawah (Fixed) -->
+    <div class="bushes-bottom"></div>
+
+    <div class="main-wrapper">
+        <!-- Kartu Ucapan dengan Bunga Menjalar -->
+        <div class="card-container">
+            <div class="vine vine-top-left"></div>
+            <div class="vine vine-bottom-right"></div>
+            
+            <h1 class="title">Happy Sweet Seventeen</h1>
+            
+            <p class="message">
+                Selamat ulang tahun imuppp, HAPPY SWEET SEVENTEEN sayangggkuuu❤️
+<br><br>
+Diumur yang mulai memasuki fase remaja, ua berdoa supaya dipermudah segala urusan imupp, juga ua harap semua keinginan imupp tercapai. Ua harapp imupp sehatt selaluu,dilancarkan rezekinya, dimudahkan dalam segala urusannya dann sukses selalu, jangan lupa makan 3 kali sehari dan shalat nyaa jangan sampe bolong💐
+<br><br>
+Jaga pola hidup nyaa begadangnya dikurangi, semangat PKLNYAAA kalo harimuu beraddd ua selaluu disiniii, jangann merasaa sendiriii kaloo adaa apaa apaa ceritaa ke uaa jangan diyamm sajaa🌷
+<br><br>
+Imupp, makasihh udahh adaa selaluu buat ua, udah semangatin ua, udah memberikan yang terbaik buat ua, harapan kedepan nya buat imupp semoga UKK nya lancarr, dapet temen-temen baikk, perhatian, dan pengertian, dan imupp harus selalu sayang sama orang tua, samaa ua jugaa jangannn lupaa, mungkin seginii ajaa maaff kalo kataa kataanyaa enggaa jelass karenaa ua bukann guru bahasa Indonesiaaa.
+<br><br>
+See youuu imuppp, semangatt selaluuu, i always love youu imupp, proud off youuu sayangggg❤️
+            </p>
+
+            <!-- Audio Player Ala Spotify -->
+            <div class="music-player">
+                <i class="fab fa-spotify spotify-icon" id="spotify-logo"></i>
+                
+                <div class="player-info">
+                    <div class="song-title">Lagu Kesukaan Kamu 🎵</div>
+                    <div class="progress-container" id="progress-container">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <div class="time-info">
+                        <span id="current-time">0:00</span>
+                        <span id="duration-time">0:00</span>
+                    </div>
+                </div>
+
+                <button class="play-btn" id="play-btn">
+                    <i class="fas fa-play" id="play-icon"></i>
+                </button>
+                
+                <!-- GANTI 'lagu.mp3' DENGAN FILE MUSIKMU -->
+                <audio id="myAudio" src="exile.mp3"></audio>
+            </div>
+        </div>
+
+        <!-- Foto Mengambang di Bawah Teks Box -->
+        <div class="floating-photos-container">
+            <div class="photo-frame photo-1">
+                <img src="foto1.jpeg" alt="Foto 1">
+            </div>
+            <div class="photo-frame photo-2">
+                <img src="foto2.jpeg" alt="Foto 2">
+            </div>
+            <div class="photo-frame photo-3">
+                <img src="foto3.jpeg" alt="Foto 3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Script JavaScript untuk Spotify Player -->
+    <script>
+        const audio = document.getElementById("myAudio");
+        const playBtn = document.getElementById("play-btn");
+        const playBtnIcon = document.getElementById("play-icon");
+        const spotifyLogo = document.getElementById("spotify-logo");
+        const progress = document.getElementById("progress");
+        const progressContainer = document.getElementById("progress-container");
+        const currentTimeEl = document.getElementById("current-time");
+        const durationTimeEl = document.getElementById("duration-time");
+
+        let isPlaying = false;
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playBtnIcon.classList.replace("fa-pause", "fa-play");
+                spotifyLogo.classList.remove("pulse");
+            } else {
+                audio.play();
+                playBtnIcon.classList.replace("fa-play", "fa-pause");
+                spotifyLogo.classList.add("pulse");
+            }
+            isPlaying = !isPlaying;
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const { currentTime, duration } = audio;
+            if(duration) {
+                const progressPercent = (currentTime / duration) * 100;
+                progress.style.width = `${progressPercent}%`;
+
+                let currentMinutes = Math.floor(currentTime / 60);
+                let currentSeconds = Math.floor(currentTime % 60);
+                if (currentSeconds < 10) currentSeconds = `0${currentSeconds}`;
+                currentTimeEl.innerText = `${currentMinutes}:${currentSeconds}`;
+            }
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            let durationMinutes = Math.floor(audio.duration / 60);
+            let durationSeconds = Math.floor(audio.duration % 60);
+            if (durationSeconds < 10) durationSeconds = `0${durationSeconds}`;
+            durationTimeEl.innerText = `${durationMinutes}:${durationSeconds}`;
+        });
+
+        progressContainer.addEventListener('click', (e) => {
+            const width = progressContainer.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            audio.currentTime = (clickX / width) * duration;
+        });
+
+        audio.onended = function() {
+            isPlaying = false;
+            playBtnIcon.classList.replace("fa-pause", "fa-play");
+            spotifyLogo.classList.remove("pulse");
+            progress.style.width = "0%";
+            currentTimeEl.innerText = "0:00";
+        };
+    </script>
+
+</body>
+</html>
